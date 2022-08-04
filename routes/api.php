@@ -21,13 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //API route for login user
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::resource('samarinda',\App\Http\Controllers\API\SamarindaAPIController::class);
-Route::resource('balikpapan',\App\Http\Controllers\API\BalikpapanAPIController::class);
-Route::resource('berau',\App\Http\Controllers\API\BerauAPIController::class);
-Route::resource('bontang',\App\Http\Controllers\API\BontangAPIController::class);
-Route::resource('kubar',\App\Http\Controllers\API\KubarAPIController::class);
-Route::resource('kukar',\App\Http\Controllers\API\KukarAPIController::class);
-Route::resource('kutim',\App\Http\Controllers\API\KutimAPIController::class);
-Route::resource('mahakam',\App\Http\Controllers\API\MahakamAPIController::class);
-Route::resource('paser',\App\Http\Controllers\API\PaserAPIController::class);
-Route::resource('penajam',\App\Http\Controllers\API\PenajamAPIController::class);
+Route::resource('dataPendaker',\App\Http\Controllers\API\PendakerAPIController::class);
