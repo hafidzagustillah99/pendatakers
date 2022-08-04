@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::resource('dataPendaker',\App\Http\Controllers\API\PendakerAPIController::class);
+Route::post('updatePendaker/{id}',[\App\Http\Controllers\API\PendakerAPIController::class,'update']);

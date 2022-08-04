@@ -217,7 +217,7 @@ class PendakerAPIController extends Controller
             }
             DB::commit();
             return response()->json([
-                'pesan'=>'Berhasil menyimpan data',
+                'pesan'=>'Berhasil mengubah data',
                 'kode'=>200],200);
         }catch (\Exception $exception){
             DB::rollBack();
