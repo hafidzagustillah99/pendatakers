@@ -53,7 +53,7 @@ class AuthController extends AppBaseController
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()
             ->json([
-                'message' => 'Hi '.$user->name.', welcome to home',
+                'message' => 'Hi '.$user->name.', welcome to pendataker',
                 'access_token' => $token, 'token_type' => 'Bearer',
                 'user' => $user,
             ]);
