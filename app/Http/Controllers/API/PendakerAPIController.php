@@ -102,6 +102,7 @@ class PendakerAPIController extends Controller
                 break;
             case "samarinda":
                 $kabkota = 'App\Models\Samarinda';
+                break;
         }
 
         try{
@@ -159,7 +160,71 @@ class PendakerAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->except('file');
+        switch ($input['kabkota']){
+            case "balikpapan":
+                $kabkota = 'App\Models\Balikpapan';
+                break;
+            case "berau":
+                $kabkota = 'App\Models\Berau';
+                break;
+            case "bontang":
+                $kabkota = 'App\Models\Bontang';
+                break;
+            case "kubar":
+                $kabkota = 'App\Models\Kubar';
+                break;
+            case "kukar":
+                $kabkota = 'App\Models\Kukar';
+                break;
+            case "kutim":
+                $kabkota = 'App\Models\Kutim';
+                break;
+            case "mahakam":
+                $kabkota = 'App\Models\Mahakam';
+                break;
+            case "paser":
+                $kabkota = 'App\Models\Paser';
+                break;
+            case "penajam":
+                $kabkota = 'App\Models\Penajam';
+                break;
+            case "samarinda":
+                $kabkota = 'App\Models\Samarinda';
+                break;
+        }
+
+        try{
+            DB::beginTransaction();
+
+            $data = $kabkota::find($id);
+            if (empty($data)){
+                return response()->json([
+                    'pesan'=>'Data yang akan diubah tidak ditemukan',
+                    'kode'=>404],404);
+            }
+            $data->update($input);
+            if ($request->hasFile('file')){
+                $file = $request->file('file');
+                $extension = $file->getClientOriginalExtension();
+
+                $nmfile = Str::uuid().".".$extension;
+                $path = $file->storeAs(
+                    'public/file',$nmfile
+                );
+                $data->file = $nmfile;
+                $data->save();
+            }
+            DB::commit();
+            return response()->json([
+                'pesan'=>'Berhasil menyimpan data',
+                'kode'=>200],200);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            return response()->json([
+                'pesan'=>$exception->getMessage(),
+                'kode'=>500],500);
+        }
     }
 
     /**
