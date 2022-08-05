@@ -24,4 +24,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('dataPendaker',\App\Http\Controllers\API\PendakerAPIController::class);
     Route::post('updatePendaker/{id}',[\App\Http\Controllers\API\PendakerAPIController::class,'update']);
+    Route::post('searchPendaker',[\App\Http\Controllers\API\PendakerAPIController::class,'searchData']);
 });

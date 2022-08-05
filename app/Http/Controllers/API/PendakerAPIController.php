@@ -227,14 +227,45 @@ class PendakerAPIController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function searchData(Request $request)
     {
-        //
+        $keyword = $request->keyword;
+        switch ($request['kabkota']){
+            case "balikpapan":
+                $kabkota = 'App\Models\Balikpapan';
+                break;
+            case "berau":
+                $kabkota = 'App\Models\Berau';
+                break;
+            case "bontang":
+                $kabkota = 'App\Models\Bontang';
+                break;
+            case "kubar":
+                $kabkota = 'App\Models\Kubar';
+                break;
+            case "kukar":
+                $kabkota = 'App\Models\Kukar';
+                break;
+            case "kutim":
+                $kabkota = 'App\Models\Kutim';
+                break;
+            case "mahakam":
+                $kabkota = 'App\Models\Mahakam';
+                break;
+            case "paser":
+                $kabkota = 'App\Models\Paser';
+                break;
+            case "penajam":
+                $kabkota = 'App\Models\Penajam';
+                break;
+            case "samarinda":
+                $kabkota = 'App\Models\Samarinda';
+                break;
+        }
+        $data = $kabkota::where('tentang', 'LIKE', '%'.$keyword.'%')->get();
+        return response()->json([
+            'pesan'=>'Berhasil mengambil data '.$request['kabkota'],
+            'kode'=>200,
+            'data'=>$data], 200);
     }
 }
