@@ -262,7 +262,7 @@ class PendakerAPIController extends Controller
                 $kabkota = 'App\Models\Samarinda';
                 break;
         }
-        $data = $kabkota::where('tentang', 'LIKE', '%'.$keyword.'%')->get();
+        $data = $kabkota::where('tentang', 'LIKE', '%'.$keyword.'%')->orWhere('tahun', 'LIKE', '%'.$keyword.'%')->get();
         return response()->json([
             'pesan'=>'Berhasil mengambil data '.$request['kabkota'],
             'kode'=>200,
