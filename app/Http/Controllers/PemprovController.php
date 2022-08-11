@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pemprov;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Samarinda;
 use Illuminate\Support\Str;
 
-class SamarindaController extends Controller
+class PemprovController extends Controller
 {
+    
      /**
      * Display a listing of the resource.
      *
@@ -24,20 +24,20 @@ class SamarindaController extends Controller
         $keyword = $request->keyword;
 
 
-        $samarinda = Samarinda::where('tentang', 'LIKE', '%'.$keyword.'%')
+        $pemprov = Pemprov::where('tentang', 'LIKE', '%'.$keyword.'%')
             ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
+            ->orwhere('provinsi', 'LIKE', '%'.$keyword. '%')
             ->paginate(5);
-        return view('samarinda.index',compact('samarinda', 'keyword' ));
+        return view('pemprov.index',compact('pemprov', 'keyword' ));
     }
 
 
 
-    public function cetak()
+    public function cetakprov()
     {
-        $samarinda = Samarinda::all();
-
-        return view('samarinda.cetak', compact('samarinda'));
+        $pemprov = Pemprov::all();
+        
+        return view('pemprov.cetakprov',  compact('pemprov'));
     }
 
     /**
@@ -47,9 +47,8 @@ class SamarindaController extends Controller
      */
     public function create()
     {
-        $samarinda = Samarinda::all();
-
-        return view('samarinda.create',compact('samarinda'));
+        $pemprov = Pemprov::all();
+        return view('pemprov.create',compact('pemprov'));
     }
 
     /**
@@ -68,19 +67,21 @@ class SamarindaController extends Controller
             'public/file',$nmfile
         );
 
-        $samarinda = new Samarinda();
-        $samarinda->tentang = $request->tentang;
-        $samarinda->mou = $request->mou;
-        $samarinda->pks = $request->pks;
-        $samarinda->tanggal = $request->tanggal;
-        $samarinda->jangka_waktu = $request->jangka_waktu;
-        $samarinda->unitkerja = $request->unitkerja;
-        $samarinda->mitrakerja = $request->mitrakerja;
-        $samarinda->tahapan = $request->tahapan;
-        $samarinda->file = $nmfile;
-        $samarinda->tahun = $request->tahun;
-        $samarinda->save();
-        return redirect('/samarinda');
+        $pemprov = new Pemprov();
+        $pemprov->tentang = $request->tentang;
+        $pemprov->mou = $request->mou;
+        $pemprov->pks = $request->pks;
+        $pemprov->tanggal = $request->tanggal;
+        $pemprov->jangka_waktu = $request->jangka_waktu;
+        $pemprov->unitkerja = $request->unitkerja;
+        $pemprov->mitrakerja = $request->mitrakerja;
+        $pemprov->tahapan = $request->tahapan;
+        $pemprov->provinsi = $request->provinsi;
+        $pemprov->nama_daerah = $request->nama_daerah;
+        $pemprov->file = $nmfile;
+        $pemprov->tahun = $request->tahun;
+        $pemprov->save();
+        return redirect('/pemprov');
     }
 
     /**
@@ -91,9 +92,8 @@ class SamarindaController extends Controller
      */
     public function show($id)
     {
-        $samarinda = Samarinda::find($id);
-
-        return view('samarinda.show', compact('samarinda'));
+        $pemprov = Pemprov::find($id);
+        return view('pemprov.show', compact('daftar_provinsi'));
     }
 
     /**
@@ -104,9 +104,9 @@ class SamarindaController extends Controller
      */
     public function edit($id)
     {
-        $samarinda = Samarinda::find($id);
-
-        return view('samarinda.edit', compact('samarinda'));
+        $pemprov = Pemprov::find($id);
+      
+        return view('pemprov.edit', compact('pemprov'));
     }
 
     /**
@@ -118,15 +118,17 @@ class SamarindaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $samarinda = Samarinda::find($id);
-        $samarinda->tentang = $request->tentang;
-        $samarinda->mou = $request->mou;
-        $samarinda->pks = $request->pks;
-        $samarinda->tanggal = $request->tanggal;
-        $samarinda->jangka_waktu = $request->jangka_waktu;
-        $samarinda->unitkerja = $request->unitkerja;
-        $samarinda->mitrakerja = $request->mitrakerja;
-        $samarinda->tahapan = $request->tahapan;
+        $pemprov = Pemprov::find($id);
+        $pemprov->tentang = $request->tentang;
+        $pemprov->mou = $request->mou;
+        $pemprov->pks = $request->pks;
+        $pemprov->tanggal = $request->tanggal;
+        $pemprov->jangka_waktu = $request->jangka_waktu;
+        $pemprov->unitkerja = $request->unitkerja;
+        $pemprov->mitrakerja = $request->mitrakerja;
+        $pemprov->tahapan = $request->tahapan;
+        $pemprov->provinsi = $request->provinsi;
+        $pemprov->nama_daerah = $request->nama_daerah;
 
         if ($request->file('file') != null) {
             echo $file = $request->file('file');
@@ -138,13 +140,13 @@ class SamarindaController extends Controller
                 $nmfile,
 
             );
-           echo  $samarinda->file = $nmfile;
+           echo  $pemprov->file = $nmfile;
         }
-        $samarinda->file = $nmfile;
-        $samarinda->tahun = $request->tahun;
-        $samarinda->save();
+        $pemprov->file = $nmfile;
+        $pemprov->tahun = $request->tahun;
+        $pemprov->save();
 
-        return redirect('/samarinda');
+        return redirect('/pemprov');
     }
 
     /**
@@ -155,8 +157,8 @@ class SamarindaController extends Controller
      */
     public function destroy($id)
     {
-        $samarinda = Samarinda::find($id);
-        $samarinda->delete();
-        return redirect('/samarinda');
+        $pemprov = Pemprov::find($id);
+        $pemprov->delete();
+        return redirect('/pemprov');
     }
 }

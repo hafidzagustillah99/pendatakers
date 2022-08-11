@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DaerahController;
 use App\Http\Controllers\TentangController;
-use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PerjanjianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SamarindaController;
@@ -17,6 +16,7 @@ use App\Http\Controllers\MahakamController;
 use App\Http\Controllers\penajamController;
 use App\Http\Controllers\PaserController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PemprovController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +36,11 @@ route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::resource('user', UsersController::class);
 
+Route::resource('pemprov', PemprovController::class);
+Route::get('pemprov.cetakprov',[PemprovController::class, 'cetakprov']);
+
 Route::get('/refereshcapcha', 'HelperController@refereshCapcha');
-Route::resource('kota', KotaController::class);
+
 Route::resource('perjanjian', PerjanjianController::class);
 Route::get('/perjanjian/cari',[PerjanjianController::class, 'cari']);
 Route::get('perjanjian.cetakperjanjian',[PerjanjianController::class, 'cetakperjanjian']);

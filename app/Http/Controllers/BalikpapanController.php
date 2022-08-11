@@ -139,7 +139,7 @@ class BalikpapanController extends Controller
                 $nmfile,
                 
             );
-           echo  $samarinda->file = $nmfile;
+           echo  $balikpapan->file = $nmfile;
         }
         $balikpapan->file = $nmfile;
         $balikpapan->tahun = $request->tahun;

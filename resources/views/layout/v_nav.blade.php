@@ -4,9 +4,8 @@
 
         <li><a href="{{route('user.index')}}"><i class="fa fa-user"></i> <span>User</span></a></li>
 
-        <li><a href="{{route('daftar_daerah.index')}}"><i class="fa fa-folder"></i> <span>Nama Daerah</span></a></li>
+        <li><a href="{{route('daftar_daerah.index')}}"><i class="fa fa-folder"></i> <span>Kota/Kabupaten Kaltim</span></a></li>
         
-       
         <li class="treeview">
           <a href="samarinda">
             <i class="fa fa-pencil"></i>
@@ -16,7 +15,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            
+          <li><a href="{{route('pemprov.index')}}"><i class="fa fa-circle-o"></i> Provinsi Kalimantan Timur</a></li>
             <li><a href="{{route('samarinda.index')}}"><i class="fa fa-circle-o"></i> Kota Samarinda</a></li>
             <li><a href="{{route('balikpapan.index')}}"><i class="fa fa-circle-o"></i> Kota Balikpapan</a></li>
             <li><a href="{{route('bontang.index')}}"><i class="fa fa-circle-o"></i> Kota Bontang</a></li>

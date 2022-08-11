@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-        <img src="{{asset('template/')}}/dist/img/kubar.jpg" class="img-circle" alt="User Image" width="70" height="70">Kabupaten Kutai Barat | Provinsi Kalimantan Timur 
+        <img src="{{asset('template/')}}/dist/img/pemprovkaltim.jpg" class="img-circle" alt="User Image" width="70" height="70"> Pemerintahan Provinsi Kalimantan Timur.
           <small class="pull-right">Date: {{ date('d M Y')}}</small>
         </h2>
       </div>
@@ -59,13 +59,15 @@
             <th>Unit Kerja</th>
             <th>Mitra Kerja</th>
             <th>Tahapan</th>
+            <th>Provinsi</th>
+            <th>Kota/Kabupaten</th>
             <th>Tahun</th>
             <th>File</th>
           </tr>
           </thead>
           <tbody>
             <?php $no=1 ?>
-          @foreach ($kubar as $data)
+          @foreach ($pemprov as $data)
           <tr>
             <td>{{ $no++ }}</td>
             <td>{{ $data->tentang }}</td>
@@ -76,6 +78,8 @@
             <td>{{ $data->unitkerja }}</td>
             <td>{{ $data->mitrakerja}}</td>
             <td>{{ $data->tahapan }}</td>
+            <td>{{ $data->provinsi }}</td>
+            <td>{{ $data->nama_daerah }}</td>
             <td>{{ $data->tahun }}</td>
             <td>{{ $data->file }}</td>
             

@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-        <img src="{{asset('template/')}}/dist/img/samarinda.png" class="img-circle" alt="User Image" width="70" height="70"> Provinsi Kalimantan Timur | Kota Samarinda
+        <img src="{{asset('template/')}}/dist/img/samarinda.png" class="img-circle" alt="User Image" width="70" height="70"> Kota Samarinda | Provinsi Kalimantan Timur
           <small class="pull-right">Date: {{ date('d M Y')}}</small>
         </h2>
       </div>
