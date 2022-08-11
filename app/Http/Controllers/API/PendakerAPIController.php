@@ -11,6 +11,7 @@ use App\Models\Kukar;
 use App\Models\Kutim;
 use App\Models\Mahakam;
 use App\Models\Paser;
+use App\Models\Pemprov;
 use App\Models\Penajam;
 use App\Models\Samarinda;
 use Illuminate\Http\Request;
@@ -56,6 +57,9 @@ class PendakerAPIController extends Controller
                 break;
             case "samarinda":
                 $data = Samarinda::all();
+                break;
+            case "pemprov":
+                $data = Pemprov::all();
         }
         return response()->json([
             'pesan'=>'Berhasil mengambil data '.$request['kabkota'],
@@ -102,6 +106,9 @@ class PendakerAPIController extends Controller
                 break;
             case "samarinda":
                 $kabkota = 'App\Models\Samarinda';
+                break;
+            case "pemprov":
+                $kabkota = 'App\Models\Pemprov';
                 break;
         }
 
@@ -192,6 +199,9 @@ class PendakerAPIController extends Controller
             case "samarinda":
                 $kabkota = 'App\Models\Samarinda';
                 break;
+            case "pemprov":
+                $kabkota = 'App\Models\Pemprov';
+                break;
         }
 
         try{
@@ -260,6 +270,9 @@ class PendakerAPIController extends Controller
                 break;
             case "samarinda":
                 $kabkota = 'App\Models\Samarinda';
+                break;
+            case "pemprov":
+                $kabkota = 'App\Models\Pemprov';
                 break;
         }
         $data = $kabkota::where('tentang', 'LIKE', '%'.$keyword.'%')->orWhere('tahun', 'LIKE', '%'.$keyword.'%')->get();
