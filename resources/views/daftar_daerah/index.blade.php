@@ -2,8 +2,9 @@
 @section('title', 'Nama Daerah')
 
 @section('content')
-    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('daftar_daerah.create') }}"><i class="fa fa-plus">Tambah </i></a></h1>
-
+    <a type="button" class="btn btn-primary" href="{{ route('daftar_daerah.create') }}" style="margin-top: -10px;margin-bottom: 5px;float:right" ><i class="fa fa-plus"> </i>Tambah
+    </a>
+    <br>
 <div class="section-body">
 <div class="card">
 <div class="card-body">

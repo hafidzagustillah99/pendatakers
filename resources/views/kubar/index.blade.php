@@ -2,12 +2,15 @@
 @section('title', 'Kabupaten Kutai Barat')
 
 @section('content')
-<a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('kubar.create') }}"><i class="fa fa-plus">Tambah Data</i>
+<a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;float:right" href="{{ route('kubar.create') }}"><i class="fa fa-plus"></i>Tambah Data
 </a>
-<p>Cari Data Perjanjian :</p>
 <form method="GET" action="{{ url('kubar') }}">
-	<input type="text" name="keyword" value="{{ $keyword }}" />
-	<button type="submit">Search</button>
+    <div class="input-group mb-3" style="width:350px">
+            <input type="text" class="form-control" placeholder="Cari Data Perjanjian" name="keyword" value="{{ $keyword }}">
+            <div class="input-group-append">
+                <button  type="submit" class="btn btn-primary">Search</button>
+            </div>
+    </div>
 </form>
 <br>
 

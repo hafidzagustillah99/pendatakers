@@ -2,12 +2,16 @@
 @section('title', 'Provinsi Kalimantan Timur')
 
 @section('content')
-<a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('pemprov.create') }}"><i class="fa fa-plus">Tambah Data</i>
+<a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;float:right" href="{{ route('pemprov.create') }}"><i class="fa fa-plus"></i> Tambah Data
 </a>
-<p>Cari Data Perjanjian :</p>
+
 <form method="GET" action="{{ url('pemprov') }}">
-	<input type="text" name="keyword" value="{{ $keyword }}" />
-	<button type="submit">Search</button>
+    <div class="input-group mb-3" style="width:350px">
+            <input type="text" class="form-control" placeholder="Cari Data Perjanjian" name="keyword" value="{{ $keyword }}">
+            <div class="input-group-append">
+                <button  type="submit" class="btn btn-primary">Search</button>
+            </div>
+    </div>
 </form>
 <br>
 
@@ -58,12 +62,12 @@
                 </p>
             </td>
 
-            <td><a href="{{ route('pemprov.edit', [$item->id]) }}" class='btn btn-success'><i class="fa fa-edit">edit</i></a></td>
+            <td><a type="button"  href="{{ route('pemprov.edit', [$item->id]) }}" class='btn btn-success'><i class="fa fa-edit"></i> edit</a></td>
             <td>
             <form action="{{ url('pemprov/'.$item->id) }}" method="POST">
                 @csrf
             <input type="hidden" name="_method" value="DELETE">
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash">delete</i></button>
+            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> delete</button>
             </form>
         </td>
             </tr>
