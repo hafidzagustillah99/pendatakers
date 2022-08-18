@@ -1,257 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Prov. Kaltim | @yield('title')</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="{{asset('template/')}}/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('template/')}}/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="{{asset('template/')}}/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('template/')}}/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{asset('template/')}}/dist/css/skins/_all-skins.min.css">
+    <title>Prov. Kaltim | @yield('title')</title>
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <meta name="description" content="OneUI - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="OneUI - Bootstrap 5 Admin Template &amp; UI Framework">
+    <meta property="og:site_name" content="OneUI">
+    <meta property="og:description" content="OneUI - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="/dashboard" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>KL</b>TM</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Pemprov</b> KALTIM</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="{{ asset('assets/media/favicons/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/media/favicons/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/media/favicons/apple-touch-icon-180x180.png') }}">
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-          
-          <!-- Notifications: style can be found in dropdown.less -->
-          
-          <!-- Tasks: style can be found in dropdown.less -->
-          
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{asset('template/')}}/dist/img/pemprovkaltim.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
+    <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/oneui.min.css') }} ">
+
+  </head>
+  <body>
+ 
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
+      <nav id="sidebar" aria-label="Main Navigation">
+        <div class="content-header">
+          <a class="fw-semibold text-dual" href="{{ route('dashboard') }}">
+            <span class="smini-visible">
+              <i class="fa fa-circle-notch text-primary"></i>
+            </span>
+            <span class="smini-hide fs-5 tracking-wider"> <img src="{{ asset('template/dist/img/pemprovkaltim.jpg') }} " style="width:20%" alt=""> {{ Auth::user()->name }} </span>
+          </a>
+          <div>
+            <a class="d-lg-none btn btn-sm btn-alt-secondary ms-1" data-toggle="layout" data-action="sidebar_close" href="javascript:void(0)">
+              <i class="fa fa-fw fa-times"></i>
             </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="{{asset('template/')}}/dist/img/pemprovkaltim.jpg" class="img-circle" alt="User Image">
+          </div>
+        </div>
 
-                <p>
-                {{ Auth::user()->name }}
-                </p>
-              </li>
-              <!-- Menu Body -->
-              
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                
-                <div class="pull-right">
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        <div class="js-sidebar-scroll">
+          <div class="content-side">
+            <ul class="nav-main">
+              @include('layout.v_nav')
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <header id="page-header">
+        <div class="content-header">
+          <div class="d-flex align-items-center"> 
+            <h4 style="padding-top: 20px">SISTEM PENDATAAN PERJANJIAN KERJASAMA</h4>
+          </div>
+          <div class="d-flex align-items-end">
+            <div class="dropdown d-inline-block ms-2">
+              <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="rounded-circle" src="{{ asset('template/dist/img/pemprovkaltim.jpg')}}" alt="Header Avatar" style="width: 21px;">
+                <span class="d-none d-sm-inline-block ms-2">{{ Auth::user()->name }}</span>
+                <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1 mt-1"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
+                <div class="p-2">
+                  
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" >                    
                     @csrf
-                    <p>
-                      <small>Sistem Pendataan Biro Pertanahan dan Otonomi Daerah</small>
-                    </p>
-                    <br>
-                    <button type="submit" class="btn btn-withe btn-primary">Log out</button>
+                    <button type="submit"  class="dropdown-item d-flex align-items-center justify-content-between" >
+                      <span class="fs-sm fw-medium">Log Out</span>
+                    </button>
                   </form>
                 </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <!-- =============================================== -->
-
-  <!-- Left side column. contains the sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="{{asset('template/')}}/dist/img/pemprovkaltim.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>{{ Auth::user()->name }}</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      @include('layout.v_nav')
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-  <!-- =============================================== -->
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        @yield('title')
-      </h1>
-      
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-        @yield('content')
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  @yield('scripts')
-
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Tahun</b> 2022
-    </div>
-    <strong>PEMPROV KALTIM <a href="/dashboard"> |Kantor Gubernur KALTIM</a>.</strong> Biro Pemerintahan dan Otonomi Daerah.
-  </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-              <div class="menu-info">
-                
               </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          
-
-          
-          <!-- /.form-group -->
-
-          <!-- /.form-group -->
-
-          
-          <!-- /.form-group -->
-
-          
-          <!-- /.form-group -->
-
-          
-          <!-- /.form-group -->
-
-          
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
+            </div>
+          </div>
+        </div>
+        <div id="page-header-loader" class="overlay-header bg-body-extra-light">
+          <div class="content-header">
+            <div class="w-100 text-center">
+              <i class="fa fa-fw fa-circle-notch fa-spin"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main id="main-container">
+        <div class="content">
+          <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-2 text-center text-md-start">
+            <div class="flex-grow-1 mb-1 mb-md-0">
+              <h1 class="h3 fw-bold mb-2">
+                @yield('title')
+              </h1>
+            </div>
+          </div>
+          @yield('content')
+        </div>
+      </main>
+      <footer id="page-footer" class="bg-body-light">
+        <div class="content py-3">
+          <div class="row fs-sm">
+            <div class="col-sm-6 order-sm-2 py-1 text-center text-sm-end">
+               <a class="fw-semibold" href="{{ route('dashboard') }}" target="_blank">INDONESIA MAJU</a>
+            </div>
+            <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
+              <a class="fw-semibold" href="{{ route('dashboard') }}" target="_blank">Pendatakers</a> 2022 | KALTIM BERDAULAT
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery 3 -->
-<script src="{{asset('template/')}}/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{asset('template/')}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="{{asset('template/')}}/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="{{asset('template/')}}/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('template/')}}/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('template/')}}/dist/js/demo.js"></script>
-<script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree()
-  })
-</script>
-
-
-</body>
+    <script src="{{ asset('assets/js/oneui.app.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/chart.js/chart.min.js')}}"></script>
+    <script src="{{ asset('assets/js/pages/be_pages_dashboard.min.js')}}"></script>
+  </body>
 </html>

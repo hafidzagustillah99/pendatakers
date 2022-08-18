@@ -7,65 +7,107 @@
     <form method="POST" action="{{ route('pemprov.index') }}">
         @csrf
     <div class="content">       
-    <div class="section-body">
+    <div class="section-body row">
 
         <div class="form-group col-sm-6">
         <label for="tentang">Tentang</label>
          <input type="text" name="tentang" class="form-control" id="tentang" required>
         </div>
 
+        <br>
+        <br>
+        <br>
+
         <div class="form-group col-sm-6">
         <label for="mou">No.MOU</label>
          <input type="text" name="mou" class="form-control" id="mou" required>
         </div>
+
+        <br>
+        <br>
+        <br>
 
         <div class="form-group col-sm-6">
         <label for="pks">No. PKS</label>
          <input type="text" name="pks" class="form-control" id="pks" required>
         </div>
 
+        <br>
+        <br>
+        <br>
+
         <div class="form-group col-sm-6">
         <label for="tanggal">Tanggal</label>
          <input type="date" name="tanggal" class="form-control" id="tanggal" required>
         </div>
+
+        <br>
+        <br>
+        <br>
 
         <div class="form-group col-sm-6">
         <label for="jangka_waktu">Jangka Waktu</label>
          <input type="text" name="jangka_waktu" class="form-control" id="jangka_waktu" required>
         </div>
 
+        <br>
+        <br>
+        <br>
+
         <div class="form-group col-sm-6">
         <label for="unitkerja">Unit Kerja</label>
          <input type="text" name="unitkerja" class="form-control" id="unitkerja" required>
         </div>
+
+        <br>
+        <br>
+        <br>
 
         <div class="form-group col-sm-6">
         <label for="mitrakerja">Mitra Kerja</label>
          <input type="text" name="mitrakerja" class="form-control" id="mitrakerja" required>
         </div>
 
+        <br>
+        <br>
+        <br>
+
         <div class="form-group col-sm-6">
         <label for="tahapan">Tahapan</label>
          <input type="text" name="tahapan" class="form-control" id="tahapan" required>
         </div>
+
+        <br>
+        <br>
+        <br>
 
         <div class="form-group col-sm-6">
         <label for="provinsi">Provinsi</label>
          <input type="text" name="provinsi" class="form-control" id="provinsi" required>
         </div>
 
+        <br>
+        <br>
+        <br>
+
         <div class="form-group col-sm-6">
         <label for="nama_daerah">Nama Kota/Kabupaten</label>
          <input type="text" name="nama_daerah" class="form-control" id="nama_daerah" required>
         </div>
 
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                <div class="form-group col-sm-6">
+        <br>
+        <br>
+        <br>
+
+      
+        <div class="form-group col-sm-6">
             <label for="file">File</label>
             <input type="file" name="file" class="form-control">
         </div>
+
+        <br>
+        <br>
+        <br>
 
         <div class="form-group col-sm-6">
         <label for="tahun">Tahun</label>
@@ -74,9 +116,9 @@
 
 
 
-    <div class="form-group col-sm-12">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save">Simpan</i></button>
-        <a href="{{ route('pemprov.index') }}" class="btn btn-danger"><i class="fa fa-undo">Cancel</i></a>
+    <div class="form-group col-sm-12 mt-3 ">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Simpan</button>
+        <a href="{{ route('pemprov.index') }}" class="btn btn-danger"><i class="fa fa-undo"></i>Cancel</a>
         </form>
 </form>
     </div>

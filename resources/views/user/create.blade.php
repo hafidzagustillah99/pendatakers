@@ -27,9 +27,9 @@
 
 
 
-    <div class="form-group col-sm-12">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save">Simpan</i></button>
-        <a href="{{ route('user.index') }}" class="btn btn-danger"><i class="fa fa-undo">Cancel</i></a>
+    <div class="form-group col-sm-12 mt-3">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Simpan</button>
+        <a href="{{ route('user.index') }}" class="btn btn-danger"><i class="fa fa-undo"></i>Cancel</a>
         </form>
 </form>
     </div>

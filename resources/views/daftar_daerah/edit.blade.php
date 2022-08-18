@@ -18,10 +18,10 @@
         <label for="daftar">Nama Daerah</label>
          <input type="text" name="daftar" value="{{ $daftar_daerah->daftar }}" class="form-control" id="daerah" required>
         </div>
-
-        
-        
-    <div class="form-group col-sm-12">
+        <br>
+        <br>
+        <br>
+    <div class="form-group col-sm-12 mt-3">
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('daftar_daerah.index') }}" class="btn btn-danger"><i class="fa fa-undo">Cancel</i></a>
         </form>

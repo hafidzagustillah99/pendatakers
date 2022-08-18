@@ -32,7 +32,7 @@ use App\Http\Controllers\PemprovController;
 ;
 
 route::get('/', [DashboardController::class, 'index']);
-route::get('/dashboard', [DashboardController::class, 'index']);
+route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('user', UsersController::class);
 
