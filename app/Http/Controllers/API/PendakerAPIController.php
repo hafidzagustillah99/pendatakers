@@ -60,6 +60,12 @@ class PendakerAPIController extends Controller
                 break;
             case "pemprov":
                 $data = Pemprov::all();
+                break;
+            default:
+                return response()->json([
+                    'pesan'=>'Data '.$request['kabkota'].' tidak ditemukan',
+                    'kode'=>404,], 404);
+
         }
         return response()->json([
             'pesan'=>'Berhasil mengambil data '.$request['kabkota'],
@@ -110,6 +116,10 @@ class PendakerAPIController extends Controller
             case "pemprov":
                 $kabkota = 'App\Models\Pemprov';
                 break;
+            default:
+                return response()->json([
+                    'pesan'=>'Data '.$request['kabkota'].' tidak bisa disimpan',
+                    'kode'=>404,], 404);
         }
 
         try{
@@ -202,6 +212,10 @@ class PendakerAPIController extends Controller
             case "pemprov":
                 $kabkota = 'App\Models\Pemprov';
                 break;
+            default:
+                return response()->json([
+                    'pesan'=>'Data '.$request['kabkota'].' tidak bisa di update',
+                    'kode'=>404,], 404);
         }
 
         try{
@@ -274,6 +288,10 @@ class PendakerAPIController extends Controller
             case "pemprov":
                 $kabkota = 'App\Models\Pemprov';
                 break;
+            default:
+                return response()->json([
+                    'pesan'=>'Data '.$request['kabkota'].' tidak ditemukan',
+                    'kode'=>404,], 404);
         }
         $data = $kabkota::where('tentang', 'LIKE', '%'.$keyword.'%')->orWhere('tahun', 'LIKE', '%'.$keyword.'%')->get();
         return response()->json([
