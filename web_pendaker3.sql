@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 24/08/2022 15:34:30
+ Date: 24/08/2022 15:37:10
 */
 
 SET NAMES utf8mb4;
@@ -158,7 +158,7 @@ CREATE TABLE `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of personal_access_tokens
@@ -171,6 +171,7 @@ INSERT INTO `personal_access_tokens` VALUES (6, 'App\\Models\\User', 4, 'auth_to
 INSERT INTO `personal_access_tokens` VALUES (7, 'App\\Models\\User', 4, 'auth_token', '588ced99d42e574b350d100ee354da2127da40ecfa9f13c52d07ae2e7dce5e29', '[\"*\"]', NULL, '2022-08-24 15:22:22', '2022-08-24 15:22:22');
 INSERT INTO `personal_access_tokens` VALUES (8, 'App\\Models\\User', 4, 'auth_token', 'b1a751b361b4fcc45b068e7fc187d1201a7f06119d1fed174edc9c7113eca5c0', '[\"*\"]', '2022-08-24 15:29:31', '2022-08-24 15:22:30', '2022-08-24 15:29:31');
 INSERT INTO `personal_access_tokens` VALUES (9, 'App\\Models\\User', 4, 'auth_token', '260fa35ea6eaf1fb34df14b19dedac45325c9251e6d8794a2f112036493c3248', '[\"*\"]', '2022-08-24 15:33:16', '2022-08-24 15:25:10', '2022-08-24 15:33:16');
+INSERT INTO `personal_access_tokens` VALUES (10, 'App\\Models\\User', 7, 'auth_token', '075b9cda742e09739b989cc9a1a0b3273925df19d44f7fa8bdebd68198e9fda2', '[\"*\"]', '2022-08-24 15:36:50', '2022-08-24 15:36:49', '2022-08-24 15:36:50');
 COMMIT;
 
 -- ----------------------------
@@ -191,7 +192,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `fk_users_daftar_daerah_idx` (`daftar_daerah_id`),
   CONSTRAINT `fk_users_daftar_daerah` FOREIGN KEY (`daftar_daerah_id`) REFERENCES `daftar_daerah` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of users
@@ -201,7 +202,7 @@ INSERT INTO `users` VALUES (1, 'Hafidz 99', 'hafidzagustillah17@gmail.com', NULL
 INSERT INTO `users` VALUES (2, 'Sinta', 'sinta@gmail.com', NULL, '$2y$10$8/MK3AJvh3s9AUGDpDnLPeqJHd4sHz6zHuGtmtJgfag5r4PY1eN8K', NULL, NULL, '2022-07-05 14:49:44', '2022-07-05 14:49:44');
 INSERT INTO `users` VALUES (3, 'Gubernur', 'kaltim@gmail.com', NULL, '$2y$10$WM2qM/2CPnB2wAy7arY8VeGOK5a9Ld5tApTZ3aYnwUFKoQ2P1BeUu', NULL, NULL, '2022-07-06 11:55:20', '2022-07-06 11:55:20');
 INSERT INTO `users` VALUES (4, 'admin', 'admin@admin.com', NULL, '$2y$10$/qTSJU8u0FpudCrwJZHFEuR6PRIiWZSXlT9OdoKpoK1Org.PIZ2Cu', 1, NULL, '2022-06-29 16:49:15', '2022-08-04 02:11:36');
-INSERT INTO `users` VALUES (5, 'admin samarinda', 'smd@gmail.com', NULL, '12345678', NULL, NULL, '2022-08-24 15:33:56', '2022-08-24 15:33:56');
+INSERT INTO `users` VALUES (7, 'admin samarinda', 'smd@gmail.com', NULL, '$2y$10$rMjg59LVoCJ7a/15DpZAZusziQws4HaXNzKifGZSlTVtNqAD9MCFy', 1, NULL, '2022-08-24 15:36:45', '2022-08-24 15:36:45');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
