@@ -45,6 +45,7 @@ class UsersController extends Controller
         $users->name = $request->name;
         $users->email = $request->email;
         $users->password = $request->password;
+        $users->daftar_daerah_id = $request->daftar_daerah_id;
         $users->save();
         return redirect('/user');
     }
