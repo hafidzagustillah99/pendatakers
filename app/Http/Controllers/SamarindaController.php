@@ -66,7 +66,6 @@ class SamarindaController extends Controller
     {
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $daerah = Daerah::where('daftar','like','%samarinda%')->first();
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
@@ -84,7 +83,6 @@ class SamarindaController extends Controller
         $samarinda->tahapan = $request->tahapan;
         $samarinda->file = $nmfile;
         $samarinda->tahun = $request->tahun;
-        $samarinda->daerah_id = $daerah->id;
         $samarinda->save();
         return redirect('/samarinda');
     }
