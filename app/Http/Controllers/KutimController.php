@@ -17,25 +17,28 @@ class KutimController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $kutim = Kutim::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $kutim = Kutim::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $kutim = Kutim::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('kutim.index',compact('kutim', 'keyword' ));
     }
 
-    
+
 
     public function cetakkutim()
     {
         $kutim = Kutim::all();
-   
+
         return view('kutim.cetakkutim', compact('kutim'));
     }
 
@@ -47,7 +50,7 @@ class KutimController extends Controller
     public function create()
     {
         $kutim = Kutim::all();
-  
+
         return view('kutim.create',compact('kutim'));
     }
 
@@ -64,7 +67,7 @@ class KutimController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
 
         $kutim = new Kutim();
@@ -104,7 +107,7 @@ class KutimController extends Controller
     public function edit($id)
     {
         $kutim = Kutim::find($id);
-       
+
         return view('kutim.edit', compact('kutim'));
     }
 
@@ -135,7 +138,7 @@ class KutimController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $kutim->file = $nmfile;
         }

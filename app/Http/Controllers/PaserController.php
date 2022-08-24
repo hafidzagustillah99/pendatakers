@@ -17,25 +17,29 @@ class PaserController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $paser = Paser::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $paser = Paser::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $paser = Paser::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
+
         return view('paser.index',compact('paser', 'keyword' ));
     }
 
-    
+
 
     public function cetakpaser()
     {
         $paser = Paser::all();
-   
+
         return view('paser.cetakpaser', compact('paser'));
     }
 
@@ -47,7 +51,7 @@ class PaserController extends Controller
     public function create()
     {
         $paser = Paser::all();
-  
+
         return view('paser.create',compact('paser'));
     }
 
@@ -64,7 +68,7 @@ class PaserController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
 
         $paser = new Paser();
@@ -104,7 +108,7 @@ class PaserController extends Controller
     public function edit($id)
     {
         $paser = Paser::find($id);
-       
+
         return view('paser.edit', compact('paser'));
     }
 
@@ -135,7 +139,7 @@ class PaserController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $paser->file = $nmfile;
         }

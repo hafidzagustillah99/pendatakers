@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berau;
+use App\Models\Daerah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -17,25 +18,30 @@ class BerauController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $berau = Berau::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+
+        $berau = Berau::whereHas('daerah')->paginate(5);
+
+        if ($request->keyword){
+            $berau = Berau::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('berau.index',compact('berau', 'keyword' ));
     }
 
-    
+
 
     public function cetakberau()
     {
         $berau = Berau::all();
-   
+
         return view('berau.cetakberau', compact('berau'));
     }
 
@@ -47,7 +53,7 @@ class BerauController extends Controller
     public function create()
     {
         $berau = Berau::all();
-  
+
         return view('berau.create',compact('berau'));
     }
 
@@ -64,7 +70,7 @@ class BerauController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
 
         $berau = new Berau();
@@ -104,7 +110,7 @@ class BerauController extends Controller
     public function edit($id)
     {
         $berau = Berau::find($id);
-       
+
         return view('berau.edit', compact('berau'));
     }
 
@@ -134,7 +140,7 @@ class BerauController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $berau->file = $nmfile;
         }

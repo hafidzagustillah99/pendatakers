@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Daerah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Samarinda;
@@ -22,12 +23,15 @@ class SamarindaController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-
-
-        $samarinda = Samarinda::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $samarinda = Samarinda::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $samarinda = Samarinda::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('samarinda.index',compact('samarinda', 'keyword' ));
     }
 
@@ -62,6 +66,7 @@ class SamarindaController extends Controller
     {
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
+        $daerah = Daerah::where('daftar','like','%samarinda%')->first();
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
@@ -79,6 +84,7 @@ class SamarindaController extends Controller
         $samarinda->tahapan = $request->tahapan;
         $samarinda->file = $nmfile;
         $samarinda->tahun = $request->tahun;
+        $samarinda->daerah_id = $daerah->id;
         $samarinda->save();
         return redirect('/samarinda');
     }

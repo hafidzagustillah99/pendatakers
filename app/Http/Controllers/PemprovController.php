@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class PemprovController extends Controller
 {
-    
+
      /**
      * Display a listing of the resource.
      *
@@ -22,12 +22,15 @@ class PemprovController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-
-
-        $pemprov = Pemprov::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('provinsi', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $pemprov = Pemprov::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $pemprov = Pemprov::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('pemprov.index',compact('pemprov', 'keyword' ));
     }
 
@@ -36,7 +39,7 @@ class PemprovController extends Controller
     public function cetakprov()
     {
         $pemprov = Pemprov::all();
-        
+
         return view('pemprov.cetakprov',  compact('pemprov'));
     }
 
@@ -105,7 +108,7 @@ class PemprovController extends Controller
     public function edit($id)
     {
         $pemprov = Pemprov::find($id);
-      
+
         return view('pemprov.edit', compact('pemprov'));
     }
 

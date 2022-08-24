@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bontang;
+use App\Models\Daerah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,25 +19,31 @@ class BontangController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $bontang = Bontang::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+
+        $bontang = Bontang::whereHas('daerah')->paginate(5);
+
+        if ($request->keyword){
+            $bontang = Bontang::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
+
         return view('bontang.index',compact('bontang', 'keyword' ));
     }
 
-    
+
 
     public function cetakbontang()
     {
         $bontang = Bontang::all();
-   
+
         return view('bontang.cetakbontang', compact('bontang'));
     }
 
@@ -48,7 +55,7 @@ class BontangController extends Controller
     public function create()
     {
         $bontang = Bontang::all();
-  
+
         return view('bontang.create',compact('bontang'));
     }
 
@@ -65,9 +72,8 @@ class BontangController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
-
         $bontang = new Bontang();
         $bontang->tentang = $request->tentang;
         $bontang->mou = $request->mou;
@@ -79,6 +85,7 @@ class BontangController extends Controller
         $bontang->tahapan = $request->tahapan;
         $bontang->file = $nmfile;
         $bontang->tahun = $request->tahun;
+
         $bontang->save();
         return redirect('/bontang');
     }
@@ -105,7 +112,7 @@ class BontangController extends Controller
     public function edit($id)
     {
         $bontang = Bontang::find($id);
-       
+
         return view('bontang.edit', compact('bontang'));
     }
 
@@ -135,7 +142,7 @@ class BontangController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $bontang->file = $nmfile;
         }

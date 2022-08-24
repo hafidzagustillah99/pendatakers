@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Daerah;
 use App\Models\Kubar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,25 +18,29 @@ class KubarController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $kubar = Kubar::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+
+        $kubar = Kubar::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $kubar = Kubar::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('kubar.index',compact('kubar', 'keyword' ));
     }
 
-    
+
 
     public function cetakkubar()
     {
         $kubar = Kubar::all();
-   
+
         return view('kubar.cetakkubar', compact('kubar'));
     }
 
@@ -47,7 +52,7 @@ class KubarController extends Controller
     public function create()
     {
         $kubar = Kubar::all();
-  
+
         return view('kubar.create',compact('kubar'));
     }
 
@@ -64,9 +69,8 @@ class KubarController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
-
         $kubar = new Kubar();
         $kubar->tentang = $request->tentang;
         $kubar->mou = $request->mou;
@@ -78,6 +82,7 @@ class KubarController extends Controller
         $kubar->tahapan = $request->tahapan;
         $kubar->file = $nmfile;
         $kubar->tahun = $request->tahun;
+
         $kubar->save();
         return redirect('/kubar');
     }
@@ -104,7 +109,7 @@ class KubarController extends Controller
     public function edit($id)
     {
         $kubar = Kubar::find($id);
-       
+
         return view('kubar.edit', compact('kubar'));
     }
 
@@ -134,7 +139,7 @@ class KubarController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $kubar->file = $nmfile;
         }

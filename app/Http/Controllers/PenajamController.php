@@ -17,25 +17,29 @@ class PenajamController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $penajam = Penajam::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $penajam = Penajam::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $penajam = Penajam::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
+
         return view('penajam.index',compact('penajam', 'keyword' ));
     }
 
-    
+
 
     public function cetakpenajam()
     {
         $penajam = Penajam::all();
-   
+
         return view('penajam.cetakpenajam', compact('penajam'));
     }
 
@@ -47,7 +51,7 @@ class PenajamController extends Controller
     public function create()
     {
         $penajam = Penajam::all();
-  
+
         return view('penajam.create',compact('penajam'));
     }
 
@@ -64,7 +68,7 @@ class PenajamController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
 
         $penajam = new Penajam();
@@ -104,7 +108,7 @@ class PenajamController extends Controller
     public function edit($id)
     {
         $penajam = Penajam::find($id);
-       
+
         return view('penajam.edit', compact('penajam'));
     }
 
@@ -134,7 +138,7 @@ class PenajamController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $penajam->file = $nmfile;
         }

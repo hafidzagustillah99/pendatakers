@@ -17,25 +17,28 @@ class KukarController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $kukar = Kukar::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $kukar = Kukar::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $kukar = Kukar::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('kukar.index',compact('kukar', 'keyword' ));
     }
 
-    
+
 
     public function cetakkukar()
     {
         $kukar = Kukar::all();
-   
+
         return view('kukar.cetakkukar', compact('kukar'));
     }
 
@@ -47,7 +50,7 @@ class KukarController extends Controller
     public function create()
     {
         $kukar = Kukar::all();
-  
+
         return view('kukar.create',compact('kukar'));
     }
 
@@ -64,7 +67,7 @@ class KukarController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
         $kukar = new Kukar();
         $kukar->tentang = $request->tentang;
@@ -103,7 +106,7 @@ class KukarController extends Controller
     public function edit($id)
     {
         $kukar = Kukar::find($id);
-       
+
         return view('kukar.edit', compact('kukar'));
     }
 
@@ -133,7 +136,7 @@ class KukarController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $kukar->file = $nmfile;
         }

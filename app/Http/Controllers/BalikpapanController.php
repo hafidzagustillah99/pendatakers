@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Balikpapan;
+use App\Models\Daerah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,25 +19,30 @@ class BalikpapanController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $balikpapan = Balikpapan::all();
-        
-        $balikpapan = Balikpapan::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+
+        $balikpapan = Balikpapan::whereHas('daerah')->paginate(5);
+
+        if ($request->keyword){
+            $balikpapan = Balikpapan::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('balikpapan.index',compact('balikpapan', 'keyword' ));
     }
 
-    
+
 
     public function cetakku()
     {
         $balikpapan = Balikpapan::all();
-   
+
         return view('balikpapan.cetakku', compact('balikpapan'));
     }
 
@@ -48,7 +54,7 @@ class BalikpapanController extends Controller
     public function create()
     {
         $balikpapan = Balikpapan::all();
-  
+
         return view('balikpapan.create',compact('balikpapan'));
     }
 
@@ -65,8 +71,9 @@ class BalikpapanController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
+
 
         $balikpapan = new Balikpapan();
         $balikpapan->tentang = $request->tentang;
@@ -79,6 +86,7 @@ class BalikpapanController extends Controller
         $balikpapan->tahapan = $request->tahapan;
         $balikpapan->file = $nmfile;
         $balikpapan->tahun = $request->tahun;
+
         $balikpapan->save();
         return redirect('/balikpapan');
     }
@@ -105,7 +113,7 @@ class BalikpapanController extends Controller
     public function edit($id)
     {
         $balikpapan = Balikpapan::find($id);
-       
+
         return view('balikpapan.edit', compact('balikpapan'));
     }
 
@@ -137,7 +145,7 @@ class BalikpapanController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $balikpapan->file = $nmfile;
         }

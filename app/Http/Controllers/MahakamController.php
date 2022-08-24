@@ -17,25 +17,28 @@ class MahakamController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        
-        
-        $mahakam = Mahakam::where('tentang', 'LIKE', '%'.$keyword.'%')
-            ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
-            ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%')
-            ->paginate(5);
+        $mahakam = Mahakam::whereHas('daerah')->paginate(5);
+        if ($request->keyword){
+            $mahakam = Mahakam::whereHas('daerah')
+                ->where(function ($query) use ($keyword){
+                    $query->where('tentang', 'LIKE', '%'.$keyword.'%')
+                        ->orwhere('tahun', 'LIKE', '%'.$keyword. '%')
+                        ->orwhere('mitrakerja', 'LIKE', '%'.$keyword. '%');
+                })->paginate(5);
+        }
         return view('mahakam.index',compact('mahakam', 'keyword' ));
     }
 
-    
+
 
     public function cetakmahakam()
     {
         $mahakam = Mahakam::all();
-   
+
         return view('mahakam.cetakmahakam', compact('mahakam'));
     }
 
@@ -47,7 +50,7 @@ class MahakamController extends Controller
     public function create()
     {
         $mahakam = Mahakam::all();
-  
+
         return view('mahakam.create',compact('mahakam'));
     }
 
@@ -64,7 +67,7 @@ class MahakamController extends Controller
 
         $nmfile = Str::uuid().".".$extension;
         $path = $request->file('file')->storeAs(
-            'public/file',$nmfile, 
+            'public/file',$nmfile,
         );
 
         $mahakam = new Mahakam();
@@ -104,7 +107,7 @@ class MahakamController extends Controller
     public function edit($id)
     {
         $mahakam = Mahakam::find($id);
-       
+
         return view('mahakam.edit', compact('mahakam'));
     }
 
@@ -134,7 +137,7 @@ class MahakamController extends Controller
             $path = $request->file('file')->storeAs(
                 'public/file',
                 $nmfile,
-                
+
             );
            echo  $mahakam->file = $nmfile;
         }
