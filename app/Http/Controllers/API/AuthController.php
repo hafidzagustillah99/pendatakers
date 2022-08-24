@@ -50,6 +50,46 @@ class AuthController extends AppBaseController
         $joinAt = date_format($user->created_at,"d M Y");
         $user['tanggal_gabung'] = strval($joinAt);
 
+        switch ($user->daftar_daerah_id){
+            case 3:
+                $user['kabkota'] = 'balikpapan';
+                break;
+            case 7:
+                $user['kabkota'] = 'berau';
+                break;
+            case 2:
+                $user['kabkota'] = 'bontang';
+                break;
+            case 6:
+                $user['kabkota'] = 'kubar';
+                break;
+            case 4:
+                $user['kabkota'] = 'kukar';
+                break;
+            case 5:
+                $user['kabkota'] = 'kutim';
+                break;
+            case 8:
+                $user['kabkota'] = 'mahakam';
+                break;
+            case 10:
+                $user['kabkota'] = 'paser';
+                break;
+            case 9:
+                $user['kabkota'] = 'penajam';
+                break;
+            case 1:
+                $user['kabkota'] = 'samarinda';
+                break;
+            case 11:
+                $user['kabkota'] = 'pemprov';
+                break;
+            default:
+                $user['kabkota'] = 'pemprov';
+                break;
+        }
+
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()
             ->json([

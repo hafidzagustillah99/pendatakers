@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Daerah;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -26,9 +27,10 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $daerah = Daerah::pluck('daftar','id');
         $users = new User();
-        
-        return view('user.create');
+
+        return view('user.create',compact('daerah','users'));
     }
 
     /**

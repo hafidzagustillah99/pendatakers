@@ -29,37 +29,37 @@ class PendakerAPIController extends Controller
     {
         switch ($request['kabkota']){
             case "balikpapan":
-                $data = Balikpapan::all();
+                $data = Balikpapan::whereHas('daerah')->get();
                 break;
             case "berau":
-                $data = Berau::all();
+                $data = Berau::whereHas('daerah')->get();
                 break;
             case "bontang":
-                $data = Bontang::all();
+                $data = Bontang::whereHas('daerah')->get();
                 break;
             case "kubar":
-                $data = Kubar::all();
+                $data = Kubar::whereHas('daerah')->get();
                 break;
             case "kukar":
-                $data = Kukar::all();
+                $data = Kukar::whereHas('daerah')->get();
                 break;
             case "kutim":
-                $data = Kutim::all();
+                $data = Kutim::whereHas('daerah')->get();
                 break;
             case "mahakam":
-                $data = Mahakam::all();
+                $data = Mahakam::whereHas('daerah')->get();
                 break;
             case "paser":
-                $data = Paser::all();
+                $data = Paser::whereHas('daerah')->get();
                 break;
             case "penajam":
-                $data = Penajam::all();
+                $data = Penajam::whereHas('daerah')->get();
                 break;
             case "samarinda":
-                $data = Samarinda::all();
+                $data = Samarinda::whereHas('daerah')->get();
                 break;
             case "pemprov":
-                $data = Pemprov::all();
+                $data = Pemprov::whereHas('daerah')->get();
                 break;
             default:
                 return response()->json([
